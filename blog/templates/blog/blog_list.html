@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load comment_tags %}
+
+
+{% block title%}
+    我的网站|博客列表
+{% endblock %}
+
+
+{% block header_extends %}
+<link rel="stylesheet" href="{% static 'css\blog_list.css' %}">
+{% endblock %}
+
+
+{% block content %}
+    <img src="{% static 'img\blog_list_small.png' %}" class="d-block w-100 " alt="..." >
+    <main>
+        <div class="container blog_list" style="height: auto;width: 80%;background-color:white; ">
+            <div class="row">
+                <div class="col-xs-12 col-md-8">
+                    <div>
+                        <div id="blog-list-all" class="mb-5"><h2>{% block blog_list_title %}博客列表{% endblock %}</h2></div>
+                        <div>
+                            {% for blog in blogs %}
+                            <div class="m-4 p-3 blog-list-item rounded">
+                                <h3><a href="{% url 'blog_detail' blog.pk %}" class="text-dark text-decoration-none">{{ blog.title }}</a></h3>
+                                <p class="blog-info">
+                                    <img src="{% static 'img/tag.svg' %}" alt="标签"><a class="text-dark text-decoration-none pl-1" href="{% url 'blog_with_type' blog.blog_type.pk %}">{{ blog.blog_type }}</a>
+                                    <img src="{% static 'img/calendar.svg' %}" class="mr-1 pb-1 pl-2">{{ blog.created_time|date:"Y-m-d" }}
+                                    <span >&nbsp;阅读量：{{ blog.get_read_num }}</span>
+                                    <span>&nbsp;评论:&nbsp;{% get_comment_count blog %}</span>
+                                </p>
+                                <p>{{ blog.content|truncatechars:30|safe }}</p>
+                            </div>
+
+                            {% empty %}
+                                <div class="blog">
+                                    <h3>-- 暂无博客，敬请期待 --</h3>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div>
+                            <div class="btn-toolbar justify-content-center" aria-label="Toolbar with button groups">
+                                <div class="btn-group " role="group">
+                                    <button  type="button" class="btn btn-light">
+                                        {# 上一页 #}
+                                        {% if page_of_blogs.has_previous %}
+                                            <a href="?page={{ page_of_blogs.previous_page_number }}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                            <span class="sr-only">Previous</span>
+                                             </a>
+                                        {% else %}
+                                            <span aria-hidden="true">&laquo;</span>
+                                        {% endif %}
+
+                                    </button>
+                                    {# 列表#}
+                                    {% for page_num in page_range %}
+                                        {% if page_num == page_of_blogs.number %}
+                                            <button type="button" class="btn btn-light"><a  href="?page={{ page_num }}" style="color: cornflowerblue">{{ page_num }}</a></button>
+                                        {% else %}
+                                            {% if page_num == '...' %}
+                                                <button type="button" class="btn btn-light"><span>{{ page_num }}</span></button>
+                                            {% else %}
+                                                <button type="button" class="btn btn-light"><a  href="?page={{ page_num }}">{{ page_num }}</a></button>
+                                            {% endif %}
+
+                                        {% endif%}
+                                    {% endfor %}
+                                    {# 下一页#}
+                                    <button class="btn btn-light" type="button">
+                                        {% if page_of_blogs.has_next %}
+                                            <a  href="?page={{ page_of_blogs.next_page_number}}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                            <span class="sr-only">Next</span>
+                                            </a>
+                                        {% else %}
+                                             <span aria-hidden="true">&raquo;</span>
+                                        {% endif %}
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="ml-5">
+                                    <p>共有{{ page_of_blogs.paginator.count }}篇博客</p>
+                                    <p>当前第{{ page_of_blogs.number}}页,共有{{ page_of_blogs.paginator.num_pages}}页</p>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class=" col-md-3 col-lg-2 p-2 ml-5 d-none d-sm-none d-md-block">
+                    <div class="mb-5">
+                        <h3 class="text-center mb-5">博客分类</h3>
+                            <div class="list-group "></div>
+                            {% for blog_type in blog_types %}
+                                <li class="list-group-item text-center ">
+                                    <a href="{% url 'blog_with_type' blog_type.pk %}" class="text-dark text-decoration-none">{{ blog_type.type_name }}</a>
+                                </li>
+                            {% empty %}
+                                <li class="list-group-item ">暂无分类</li>
+                            {% endfor %}
+
+
+                    </div>
+                    <div>
+                        <h3 class="text-center mb-5">日期归档</h3>
+                            <div class="list-group "></div>
+                            {% for blog_date in blog_dates %}
+                                <li class="list-group-item text-center ">
+                                    <a href="{% url 'blogs_with_date' blog_date.year blog_date.month %}" class="text-dark text-decoration-none">{{ blog_date|date:"Y年m月" }}</a>
+                                </li>
+                            {% endfor %}
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock%}
+
+{% block active %}
+    <script>
+          $("#list").css("color","white");
+    </script>
+{% endblock %}

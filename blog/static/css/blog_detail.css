@@ -1,0 +1,44 @@
+.container {
+    color: #1b1e21;
+    background-color: white;
+    font-family: "Apple Color Emoji";
+    position: absolute;
+    left: 11%;
+    margin-bottom: 5rem;
+    padding-bottom: 2rem;
+}
+
+body {
+    background-color: #b9bbbe;
+}
+
+.blog-more {
+    color: dimgray;;
+    padding-top: 1rem;
+}
+
+a {
+    color: dimgray;
+}
+
+a:hover {
+    color: rgba(38, 38, 199, 0.6);
+}
+
+.likes {
+    background-color: rgba(88, 190, 254, 0.20);
+    display: inline-block;
+    line-height: 1.4rem;
+    word-spacing: 0.05rem;
+    border: 0;
+    color: #007bff;
+    padding: 0.3rem 0.6rem;
+    border-radius: 0.25rem;
+    margin-top: 0.2rem;
+}
+.likes:hover{
+    background-color: rgba(88, 190, 254, 0.30);
+}
+div.django-ckeditor-widget {
+    width: 100%;
+}

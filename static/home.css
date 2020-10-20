@@ -1,0 +1,31 @@
+body{
+    background-color: rgba(0,0,0,0.1);
+    height:auto;
+    z-index: 0;
+}
+main .container{
+    background-color: white;
+    position: relative;
+    top: -1rem;
+    width: 80%;
+    min-height: 800px;
+    z-index: 9;
+    padding-top: 2rem;
+    box-shadow: 0.1rem 0.1rem  0.1rem grey;
+    border-radius: 10px;
+}
+
+.carousel-caption {
+    position: absolute;
+    bottom: 60%;
+    left: 15%;
+    right: 15%;
+    z-index: 10;
+    color: #fff;
+    text-align: center;
+}
+section{
+    left: 15%;
+    display: block;
+    margin:2rem;
+}

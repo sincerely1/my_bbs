@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{%block title%}
+我的网站|视频
+{% endblock %}
+
+{% block header_extends %}
+
+<link rel="stylesheet" href="{% static 'css\ckin.css' %}">
+<link rel="stylesheet" href="{% static 'css\show_video.css' %}">
+
+
+{% endblock %}
+
+{% block content %}
+<div class="the-big-photo">
+    <a href="https://sm.ms/image/VuobjlMPFXsv5KU" target="_blank"><img
+            src="https://i.loli.net/2020/10/18/VuobjlMPFXsv5KU.jpg" class="img-fluid"></a>
+</div>
+<div class="container-fluid h-auto main">
+    <div class="row">
+        <div class="col-md-10 offset-1 ">
+            <div class=" pt-5 pb-4">
+                <h4 class="text-center mb-4">东方project</h4>
+                <video poster="{% static 'img\poster1.jpg'%}" src="{% static 'video\demo.mp4' %}" data-ckin="default" data-overlay="1"  data-color="#FFFFFF" data-title="东方project"></video>
+            </div>
+        </div>
+    </div>
+</div>
+<script rel="stylesheet" src="{% static 'js\ckin.js' %}"></script>
+{% endblock %}
+
+{% block active%}
+
+{% endblock %}

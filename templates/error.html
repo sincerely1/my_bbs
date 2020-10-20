@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}
+    我的网站|错误
+{% endblock %}
+
+{% block content %}
+    <p>{{ error_message }}</p>
+    <button class="btn btn-info">
+        <a href="{{ redirect_to }}" class="text-white">返回</a>
+    </button>
+{% endblock %}

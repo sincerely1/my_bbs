@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{%block title%}
+我的网站|图片
+{% endblock %}
+
+{% block header_extends %}
+<link href="https://fonts.googleapis.com/css?family=Hind:400,600|Open+Sans:300,600" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css\main.css' %}">
+<link rel="stylesheet" href="{% static 'css\sortable.min.css' %}">
+<script rel="stylesheet" src="{% static 'js\sortable.min.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="the-big-photo">
+    <a href="https://sm.ms/image/VuobjlMPFXsv5KU" target="_blank"><img
+            src="https://i.loli.net/2020/10/18/VuobjlMPFXsv5KU.jpg" class="img-fluid"></a>
+</div>
+<div class="container-fluid h-auto">
+    <div class="row">
+        <div class="col-md-10 offset-1 ">
+            <div class="photo pl-5 pr-5">
+                <main class="sortable">
+                    <div class="wrapper">
+                        <ul class="sortable__nav nav">
+                            <li>
+                                <a data-sjslink="all" class="nav__link">
+                                    全部
+                                </a>
+                            </li>
+                            <li>
+                                <a data-sjslink="wallpaper" class="nav__link">
+                                    壁纸
+                                </a>
+                            </li>
+                            <li>
+                                <a data-sjslink="my_like" class="nav__link">
+                                    我喜欢
+                                </a>
+                            </li>
+                        </ul>
+                        <div id="sortable" class="sjs-default">
+                            <div data-sjsel="wallpaper">
+                                <div class="card">
+                                    <a href="https://sm.ms/image/oUa4ZfcpLie2ACW" target="_blank"><img
+                                            src="https://i.loli.net/2020/10/17/oUa4ZfcpLie2ACW.jpg"
+                                            alt="wallhaven-vg7r88.jpg"></a>
+                                </div>
+                            </div>
+                            <div data-sjsel="wallpaper">
+                                <div class="card">
+                                    <a href="https://sm.ms/image/ior6UhjQbvndSeD" target="_blank"><img
+                                            src="https://i.loli.net/2020/10/17/ior6UhjQbvndSeD.jpg"
+                                            alt="130352-1523077432793d.jpg"></a>
+                                </div>
+                            </div>
+                            <div data-sjsel="my_like">
+                                <div class="card">
+                                    <a href="https://sm.ms/image/B74Ixfrwgi3LZvS" target="_blank"><img
+                                            src="https://i.loli.net/2020/10/17/B74Ixfrwgi3LZvS.png"
+                                            alt="wallhaven-96jl7d_1920x1080.png"></a>
+                                </div>
+                            </div>
+                            <div data-sjsel="wallpaper">
+                                <div class="card">
+                                    <a href="https://sm.ms/image/iOjuNzLXs6aZr4c" target="_blank"><img
+                                            src="https://i.loli.net/2020/10/17/iOjuNzLXs6aZr4c.png"
+                                            alt="wallhaven-zml1ly_1920x1080.png"></a>
+                                </div>
+                            </div>
+                            <div data-sjsel="wallpaper">
+                                <div class="card">
+                                    <a href="https://sm.ms/image/XOJwuUih13t7KGV" target="_blank"><img
+                                            src="https://i.loli.net/2020/10/17/XOJwuUih13t7KGV.jpg"
+                                            alt="wallhaven-2ep539.jpg"></a>
+                                </div>
+                            </div>
+                            <div data-sjsel="my_like">
+                                <div class="card">
+                                    <a href="https://sm.ms/image/hYyA241R3JvSbBt" target="_blank"><img
+                                            src="https://i.loli.net/2020/10/17/hYyA241R3JvSbBt.jpg"
+                                            alt="wallhaven-r2k9mw.jpg"></a>
+
+                                </div>
+                            </div>
+                            <div data-sjsel="wallpaper">
+                                <div class="card">
+                                    <a href="https://sm.ms/image/qdDnRIwN5uOYkoX" target="_blank"><img
+                                            src="https://i.loli.net/2020/10/17/qdDnRIwN5uOYkoX.png"
+                                            alt="wallhaven-q61qg7_1920x1080.png"></a>
+                                </div>
+                            </div>
+                            <div data-sjsel="wallpaper">
+                                <div class="card">
+                                    <a href="https://sm.ms/image/W8KL5sBU49kiJhF" target="_blank"><img
+                                            src="https://i.loli.net/2020/10/17/W8KL5sBU49kiJhF.jpg"
+                                            alt="女生 白色衬衫 耳机 房间 书桌 4k动漫壁纸_彼岸图网.jpg"></a>
+
+                                </div>
+                            </div>
+                            <div data-sjsel="my_like">
+                                <div class="card">
+                                    <a href="https://sm.ms/image/RXhxp7sukWN9qQF" target="_blank"><img
+                                            src="https://i.loli.net/2020/10/18/RXhxp7sukWN9qQF.jpg"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    document.querySelector('#sortable').sortablejs()
+</script>
+
+{% endblock %}
+
+{% block active%}
+
+{% endblock %}

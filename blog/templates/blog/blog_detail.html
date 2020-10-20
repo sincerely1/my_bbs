@@ -1,0 +1,304 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load comment_tags %}
+
+{% block title%}
+我的网站
+{% endblock %}
+
+{% block header_extends %}
+<script type="text/javascript" src="{% static  'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css\blog_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container h-auto rounded mt-5">
+    <div class="row">
+        <div class="col-md-10 offset-1">
+            <article class="mt-4">
+                <h3 class="text-center mb-5">{{ blog.title }}</h3>
+                <p>作者：{{ blog.author }} </p>
+                <p>发表日期：{{ blog.created_time|date:"Y-m-d H:i:s" }}</p>
+                <p>阅读量：{{ blog.get_read_num }}</p>
+                <p>评论&nbsp;:{% get_comment_count blog %}</p>
+                <p>分类：<a href="{% url 'blog_with_type' blog.blog_type.pk %}">{{ blog.blog_type }}</a></p>
+
+                <div class="text-wrap" style="text-indent: 2rem;">{{ content|safe }}</div>
+            </article>
+
+            <button class="likes" id="likes" onclick="likeChange(this,'blog',{{ blog.pk }})">
+                <span>▲ 点赞&nbsp;</span>
+                <span class="liked_num">{% get_likes_num blog %}</span>
+            </button>
+            <div class="blog-more">
+                <p>上一篇：
+                    {% if previous_blog %}
+                    <a href="{% url 'blog_detail' previous_blog.pk %}">{{ previous_blog.title }}</a>
+                    {% else %}
+                    没有了
+                    {% endif %}
+                </p>
+                <p>下一篇：
+                    {% if next_blog %}
+                    <a href="{% url 'blog_detail' next_blog.pk %}">{{ next_blog.title }}</a>
+                    {% else %}
+                    没有了
+                    {% endif %}
+                </p>
+                <hr>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-10 offset-1">
+
+            {% if user.is_authenticated %}
+            <div class="form-group">
+
+                <form id="comment_form" action="{% url 'update_comment' %}" method="post">
+                    {% csrf_token %}
+                    <label>{{user.username}},欢迎评论：</label>
+                    <div id="reply_content_container" style="display:none;">
+                        <p>回复：</p>
+                        <div id="reply_content"></div>
+                        <hr>
+                    </div>
+                    <br>
+                    {% get_comment_form blog as comment_form%}
+                    {%for field in comment_form%}
+                    {{field}}
+                    {% endfor%}
+                    <span id="comment_error" class="text-danger float-left"></span>
+                    <input class="btn btn-primary float-right mt-2" type="submit" value="评论">
+                </form>
+            </div>
+            {% else %}
+            <div class="form-group">
+                <h5>请先登录，登录后才可以评论!</h5>
+                <a href="{% url 'login' %}?from={{request.get_full_path}}" class="text-white btn btn-info">登陆</a>
+                <a href="{% url 'register' %}?from={{request.get_full_path}}" class="text-white btn btn-danger">注册</a>
+            </div>
+            {% endif %}
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-10 offset-1 w-75 ">
+            <hr>
+            <h5>评论列表</h5>
+            <div id="comment_list">
+                {% get_comment_list blog as comments %}
+                {% for comment in comments %}
+                <div class="card mt-4 mb-5 w-100">
+                    <div class="card-header">
+                        用户：{{comment.user.username}} 时间：{{ comment.comment_time|date:"Y-m-d H:n:s" }}
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            {{comment.text | safe}}
+                        </p>
+                        <a href="javascript:Reply({{ comment.pk }});" class="btn btn-info">回复</a>
+
+                        <div id="root_{{comment.pk}}" class="mt-3 ml-4">
+                            {% for reply in comment.root_comment.all%}
+                            <div class="reply border-bottom mt-3 ">
+                                <span>{{reply.user.username}}</span>
+                                <span>({{ reply.comment_time|date:"Y-m-d H:i:s" }})</span>
+                                <span>回复</span>
+                                <span>{{ reply.reply_to.username }}：</span>
+                                <div id="comment_{{ reply.pk }}">
+                                    {{ reply.text|safe }}
+                                </div>
+                                <a href="javascript:Reply({{ reply.pk }});" class="btn btn-info">回复</a>
+                            </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+
+                </div>
+                {% empty %}
+                <h5 id="no_comment">暂无评论</h5>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="MedalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">登录页面</h5>
+            </div>
+            <div class="form-group">
+                <form if="medal_login_form" method="post" action="">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        {% for field in login_form %}
+                        <label for="{{ field.id_for_label }}">{{field.label}}</label>
+                        {{field}}
+                        <p class="text-danger" id="medal_login_tip">{{field.errors.as_text}}</p>
+                        {% endfor %}
+                        <span class="pull-left text-danger">{{ login_form.non_field_errors }}</span>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" value="登录" class="btn btn-primary">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}
+
+{% block js_extent%}
+<script type="text/javascript">
+    String.prototype.format = function () {
+        let str = this;
+        for (let i = 0; i < arguments.length; i++) {
+            str = str.replace(new RegExp('\\{' + i + '\\}', 'g'), arguments[i]);
+        }
+        return str
+    }
+
+    function Reply(reply_comment_id) {
+        //设置值
+        $('#reply_comment_id').val(reply_comment_id);
+        let html = $("#comment_" + reply_comment_id).html();
+        $("#reply_content").html(html);
+        $('#reply_content_container').show();
+        $('html').animate({scrollTop: $('#comment_form').offset().top - 60}, 300, function () {
+            CKEDITOR.instances['id_comment'].focus();
+        });
+    }
+
+    $("#comment_form").submit(function () {
+        // 判断是否为空
+
+        $("#comment_error").text('');
+        if (CKEDITOR.instances["id_comment"].document.getBody().getText().trim() == '') {
+            $("#comment_error").text('评论不可以为空');
+            return false;
+        }
+        //更新数据到textarea
+
+        CKEDITOR.instances['id_comment'].updateElement();
+        //异步提交
+        $.ajax({
+            url: "{% url 'update_comment' %}",
+            type: "POST",
+            data: $(this).serialize(),
+            cache: false,
+            success: function (data) {
+                if (data['status'] == "SUCCESS") {
+
+                    if ($("#reply_comment_id").val() == '0') {
+                        let comment_html = '<div class="card mt-4 mb-5 w-100">' +
+                            '<div class="card-header">' +
+                            '用户：{0} 时间：{1}' +
+                            '</div>' +
+                            '<div class="card-body">' +
+                            '<p>{2}</p>' +
+                            '<a href="javascript:Reply({3});" class="btn btn-info">回复</a>' +
+                            '<div id="root_{3}" class="mt-3 ml-4"></div>' +
+                            '</div>';
+                        comment_html = comment_html.format(data['username'], data['comment_time'], data["text"], data['pk']);
+                        $("#comment_list").prepend(comment_html);
+                    } else {
+                        let reply_html = '<div class="reply border-bottom mt-3 ">' +
+                            '<span>{0}</span>' +
+                            '<span>({1})</span>' +
+                            '<span>回复</span>' +
+                            '<span>{2}：</span>' +
+                            '<div id="comment_{3}">{4}</div>' +
+                            '<a href="javascript:Reply({3});" class="btn btn-info">回复</a>' +
+                            '</div>';
+                        reply_html = reply_html.format(data['username'], data['comment_time'], data['reply_to'], data['pk'], data['text']);
+                        $("#root_" + data['root_pk']).append(reply_html);
+                    }
+
+                    CKEDITOR.instances['id_comment'].setData('');
+                    $('#reply_content_container').hide();
+                    $('#reply_comment_id').val('0');
+                    $('#no_comment').remove();
+                } else {
+                    $("#comment_error").text(data['message']);
+                }
+            },
+            error: function (xhr) {
+
+                console.log(xhr);
+            }
+        });
+        return false;
+    });
+
+    function likeChange(obj, content_type, object_id) {
+        $.ajax({
+            url: "{% url 'like_change' %}",
+            type: "GET",
+            data: {
+                content_type: content_type,
+                object_id: object_id,
+            },
+            cache: false,
+            success: function (data) {
+                console.log(data);
+                if (data['status'] == "SUCCESS") {
+                    let element = document.getElementById('likes');
+                    if (data["is_like"]) {
+                        element.style.backgroundColor = "#007bff";
+                        element.style.color = "white";
+
+                    } else {
+                        element.style.backgroundColor = "rgba(88, 190, 254, 0.20)";
+                        element.style.color = "#007bff";
+
+                    }
+                    let liked_num = $(obj.getElementsByClassName('liked_num'));
+                    liked_num.text(data['liked_num']);
+
+                } else {
+                    if (data["code"] == 400) {
+                        $("#MedalLogin").modal('show');
+                    } else {
+                        alert(data['message']);
+                    }
+
+                }
+            },
+            error: function (xhr) {
+                console.log(xhr);
+            }
+        });
+    }
+
+    $("#MedalLogin").submit(function (event) {
+        event.preventDefault();
+        $.ajax({
+            url: "{% url 'medal_login' %}",
+            type: 'POST',
+            data: $(this).serialize(),
+            cache: false,
+            success: function (data) {
+                console.log(data);
+                if (data['status'] == "SUCCESS") {
+                    window.location.reload();
+                } else {
+                    $('#medal_login_tip').text('用户名或密码不正确');
+                }
+            }
+
+        });
+
+    });
+</script>
+{% endblock%}
+
