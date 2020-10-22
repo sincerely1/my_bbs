@@ -2,16 +2,24 @@
     color: #1b1e21;
     background-color: white;
     font-family: "Apple Color Emoji";
-    position: absolute;
-    left: 11%;
     margin-bottom: 5rem;
     padding-bottom: 2rem;
+    z-index: 1;
+    position: relative;
+    top: -1rem;
 }
+body{
+    min-height: 800px;
 
-body {
-    background-color: #b9bbbe;
 }
+picture{
+     width: 100%;
+    z-index: 0;
+}
+img{
+    width: 100%;
 
+}
 .blog-more {
     color: dimgray;;
     padding-top: 1rem;

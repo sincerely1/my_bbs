@@ -9,7 +9,10 @@
 {% endblock %}
 
 {% block content %}
-    <div class="containter">
+    <picture>
+        <a href="https://sm.ms/image/DNqAVOLX1IirnBm" target="_blank"><img src="https://i.loli.net/2020/10/22/DNqAVOLX1IirnBm.png" ></a>
+    </picture>
+    <div class="container user-info">
         <div class="row">
             <div class="col-xs-10 offset-1">
                 {% if user.is_authenticated %}
@@ -29,6 +32,19 @@
             </div>
         </div>
     </div>
+<style>
+    .user-info{
+        background-color: white;
+        z-index: 2;
+        position: relative;
+        top: -1rem;
+        border-radius: 10px;
+        min-height: 600px;
+    }
+    picture{
+        z-index: 0;
+    }
+</style>
 {% endblock %}
 
 {% block active%}
