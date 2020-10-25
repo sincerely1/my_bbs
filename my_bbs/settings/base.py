@@ -71,7 +71,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': "bbs",
-        'USER': 'root',
+        'USER': "my_bbs",
         'PASSWORD': '123456',
         'HOST': '127.0.0.1',
         'POST': '3306',
