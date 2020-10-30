@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'show_photos.apps.ShowPhotosConfig',
     'show_video.apps.ShowVideoConfig',
+    'show_love_music.apps.ShowLoveMusicConfig',
 
 ]
 
@@ -71,7 +72,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': "bbs",
-        'USER': "my_bbs",
+        'USER': "root",
         'PASSWORD': '123456',
         'HOST': '127.0.0.1',
         'POST': '3306',

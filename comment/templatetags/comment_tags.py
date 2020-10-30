@@ -3,6 +3,7 @@ from django.contrib.contenttypes.models import ContentType
 from ..models import Comment
 from ..forms import CommentForm
 from likes.models import Like
+from show_love_music.models import Music_info
 register = template.Library()
 
 
@@ -37,3 +38,7 @@ def get_context_type(obj):
 def get_likes_num(obj):
     content_type = ContentType.objects.get_for_model(obj)
     return Like.objects.filter(content_type=content_type, object_id=obj.pk).count()
+
+@register.simple_tag
+def get_musics(obj):
+    return Music_info.objects.filter(id=obj.pk)

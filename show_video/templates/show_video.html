@@ -5,32 +5,33 @@
 我的网站|视频
 {% endblock %}
 
-{% block header_extends %}
-
-<link rel="stylesheet" href="{% static 'css\ckin.css' %}">
-<link rel="stylesheet" href="{% static 'css\show_video.css' %}">
-
-
-{% endblock %}
-
 {% block content %}
-<div class="the-big-photo">
-    <a href="https://sm.ms/image/GR3fcqIukbDWAz5" target="_blank"><img
-            src="https://i.loli.net/2020/10/22/GR3fcqIukbDWAz5.png"></a>
-    <div class="container-fluid h-auto main">
-        <div class="row">
-            <div class="col-md-10 offset-1 ">
-                <div class=" pt-5 pb-4">
-                    <h4 class="text-center mb-4">东方project</h4>
-                    <video poster="{% static 'img\poster1.jpg'%}" src="{% static 'video\demo.mp4' %}"
-                           data-ckin="default" data-overlay="1" data-color="#FFFFFF" data-title="东方project"></video>
-                </div>
+<div class="bad-apple">
+    <img src="{% static 'img\bad_apple1.png'%}" width="100%" height="auto">
+</div>
+<style>
+</style>
+<div class="container-fluid h-auto mt-4">
+    <div class="row">
+        <div class="col-md-10 offset-md-1 col-xs-12">
+            <div style="position: relative; padding: 30% 45%;">
+                <iframe style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;"
+                        src="//player.bilibili.com/player.html?aid=32415105&bvid=BV1cW411673S&cid=62572890&page=2&high_quity=1&danmaku=1&sa_wide=1"
+                        scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
             </div>
         </div>
     </div>
-    <script rel="stylesheet" src="{% static 'js\ckin.js' %}"></script>
-    {% endblock %}
+    <div class="row mt-3">
+        <div class="col-md-10 offset-md-1 col-xs-12">
+           <h3 class="text-center">
+               看完视频，感觉只有牛！
+           </h3>
+        </div>
+    </div>
+</div>
 
-    {% block active%}
+{% endblock %}
 
-    {% endblock %}
+{% block active%}
+
+{% endblock %}

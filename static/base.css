@@ -16,7 +16,12 @@
 }
 
 body {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.05);
     height: auto;
 }
-
+p{
+    font-size: calc(0.9rem + 0.1vm);
+}
+h1{
+    font-size: calc(2rem+ 0.01vm) ;
+}
