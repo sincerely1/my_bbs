@@ -4,7 +4,7 @@ from read_statistic.utils import read_statistic_once_read
 from .models import BlogType, Blog
 from user.forms import LoginForm
 
-EACH_PAGE_BLOGS = 5
+EACH_PAGE_BLOGS = 12
 
 
 # Create your views here.
@@ -29,7 +29,7 @@ def get_paginator_range(request, blogs):
     context['blogs'] = page_of_blogs.object_list
     context['page_range'] = page_range
     context['page_of_blogs'] = page_of_blogs
-    context['blog_dates'] = Blog.objects.dates('created_time', 'month', order="DESC")
+    #context['blog_dates'] = Blog.objects.dates('created_time', 'month', order="DESC")
     return context
 
 

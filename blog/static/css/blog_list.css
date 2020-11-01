@@ -1,18 +1,40 @@
-
-.type-list{
-    background-color: white;
+.set-position {
     position: relative;
-    top: -1rem;
+    top: -4rem;
     min-height: 200px;
     z-index: 9;
-    padding-top: 2rem;
+    margin-bottom: -4rem;
+}
+
+.type-list {
+    background-color: white;
     box-shadow: darkgrey 0px 0px 5px;
     border-radius: 10px;
 }
-.type-item{
+
+.type-item {
     background-color: rgba(51, 158, 210, 0.7);
     color: white;
 }
-.type-item :hover{
-     background-color: rgba(71, 158, 210, 1);
+
+.type-item :hover {
+    background-color: rgba(71, 158, 210, 1);
+}
+
+.blog-title {
+    z-index: 1;
+    position: relative;
+    top: -3rem;
+}
+
+.blog-item-type {
+    background-color: rgb(97, 154, 195);
+    color: white;
+    padding: 0.2rem;
+    border: 0;
+    border-radius: 0.5rem;
+    font-size: 0.7rem;
+    min-width: 3.5rem;
+    display: inline-block;
+    text-align: center;
 }

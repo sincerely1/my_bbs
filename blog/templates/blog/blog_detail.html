@@ -13,20 +13,52 @@
 {% endblock %}
 
 {% block content %}
-<picture>
-   <a href="https://sm.ms/image/j52JPHohxQyDTaW" target="_blank"><img src="https://i.loli.net/2020/10/22/j52JPHohxQyDTaW.jpg" ></a>
+<div class="header-before"></div>
 <div class="container h-auto rounded">
     <div class="row">
-        <div class="col-md-10 offset-1">
-            <article class="mt-3">
+        <div class="col-md-12">
+            <div class="article-info p-3">
+                <div>
+                    <a href="{% url 'blog_with_type' blog.blog_type.pk %}" class="blog-item-type d-inline-block">{{blog.blog_type}}</a>
+                    <div class="d-inline-block type-use">
+                        <svg class="bi bi-bookmark" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M8 12l5 3V3a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12l5-3zm-4 1.234l4-2.4 4 2.4V3a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10.234z"/>
+                        </svg>
+                        <span>技术博客</span>
+                    </div>
+                </div>
+                <div class="pt-1 blog-time">
+                    <div class="d-inline-block pr-2">
+                        <svg class="bi bi-calendar2" width="1em" height="1.1em" viewBox="0 0 16 16" fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M14 2H2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1zM2 1a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2z"/>
+                            <path fill-rule="evenodd"
+                                  d="M3.5 0a.5.5 0 0 1 .5.5V1a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5zm9 0a.5.5 0 0 1 .5.5V1a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5z"/>
+                            <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4z"/>
+                        </svg>
+                        <span>发布时间：{{blog.created_time |date:"Y-m-d"}}</span>
+                    </div>
+                    <div class="d-inline-block">
+                        <svg class="bi bi-calendar2" width="1em" height="1.1em" viewBox="0 0 16 16" fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M14 2H2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1zM2 1a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2z"/>
+                            <path fill-rule="evenodd"
+                                  d="M3.5 0a.5.5 0 0 1 .5.5V1a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5zm9 0a.5.5 0 0 1 .5.5V1a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5z"/>
+                            <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4z"/>
+                        </svg>
+                        <span>最后更新时间：{{blog.last_updated_time|date:"Y-m-d"}}</span>
+                    </div>
+                </div>
+            </div>
+            <article class="blog-body p-3 mt-3">
                 <h3 class="text-center mb-5">{{ blog.title }}</h3>
-                <p>作者：{{ blog.author }} </p>
-                <p>发表日期：{{ blog.created_time|date:"Y-m-d H:i:s" }}</p>
+                <div class="text-wrap pb-3" style="text-indent: 2rem;">{{ content|safe }}</div>
                 <p>阅读量：{{ blog.get_read_num }}</p>
                 <p>评论&nbsp;:{% get_comment_count blog %}</p>
-                <p>分类：<a href="{% url 'blog_with_type' blog.blog_type.pk %}">{{ blog.blog_type }}</a></p>
-
-                <div class="text-wrap" style="text-indent: 2rem;">{{ content|safe }}</div>
             </article>
 
             <button class="likes" id="likes" onclick="likeChange(this,'blog',{{ blog.pk }})">
@@ -160,7 +192,7 @@
 {%endblock%}
 
 {% block js_extent%}
-    {{block.super}}
+{{block.super}}
 <script type="text/javascript">
     String.prototype.format = function () {
         let str = this;

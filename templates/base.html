@@ -20,7 +20,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse " id="navbar">
-            <span class="navbar-brand">LOGO</span>
+            <span class="navbar-brand"><img style="width: auto;height: 32px" src="https://i.loli.net/2020/11/01/cmf3ADwN5ReznbK.png" ></span>
             <div class="navbar-nav ml-auto">
                 <a id="home" href="{% url 'home' %}" class="nav-item nav-link ">
                     <span>
@@ -59,7 +59,7 @@
                     </span>
                     博客标签
                 </a>
-                <a href="{% url 'show_photos'%}" class="nav-item nav-link">
+                <a id="picture" href="{% url 'show_photos'%}" class="nav-item nav-link">
                     <span>
                         <svg class="bi bi-images pb-1" width="1.5em" height="1.5em" viewBox="0 0 16 16"
                              fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -72,7 +72,7 @@
                     </span>
                     图片
                 </a>
-                <a href="{% url 'show_video' %}" class="nav-item nav-link">
+                <a id="video" href="{% url 'show_video' %}" class="nav-item nav-link">
                     <span>
                         <svg class="bi bi-film pb-1" width="1.5em" height="1.5em" viewBox="0 0 16 16"
                              fill="currentColor"
@@ -135,7 +135,7 @@
         } else {
             opacity = 0;
         }
-        document.getElementById('nav').style.background = 'rgba(61,138,210,' + opacity + ')';
+        document.getElementById('nav').style.background = 'rgba(41, 131, 187,' + opacity + ')';
 
     };
 </script>

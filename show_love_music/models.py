@@ -22,4 +22,4 @@ class Music_info(models.Model):
     musician_name = models.ForeignKey(to=Musician, to_field='id', on_delete=models.CASCADE, verbose_name="作者id")
 
     def __str__(self):
-        return self.musician_name
+        return self.name_music
